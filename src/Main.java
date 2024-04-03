@@ -7,8 +7,6 @@ public class Main {
         MidiChannel channel = synth.getChannels()[0];
         channel.noteOn(60, 80);
         Thread.sleep(500);
-
-
     }
 }
 
