@@ -14,20 +14,34 @@ public class Main {
             byte[] toneBufferTest = Synth.createSinWaveBuffer(500);
 
             for (byte b : toneBufferTest) {
-                System.out.println(b);
+                // System.out.println(b);
             }
 
-            for (double freq = 220 ; freq <= 1000; freq++) {
+            for (double freq = 220; freq <= 400; freq++) {
                 byte[] toneBuffer = Synth.createSquareWaveBuffer(freq);
-                line.write(toneBuffer, 0, toneBuffer.length);
+                // line.write(toneBuffer, 0, toneBuffer.length);
+            }
+
+            for (double blahblah = 1; blahblah < 10;) {
+                Note testNote = Note.G4$;
+                line.write(testNote.tone(), 0, testNote.tone().length);
             }
 
             line.drain();
             line.close();
-        }
-        catch (LineUnavailableException e) {
+
+        } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
     }
+
+    // goal: play(note, duration)
+    /*
+        void play {
+            line.write(note, 0, note.tone().length)
+            // use duration parameter to stop writing somehow
+            // something like this
+        }
+     */
 }
 
