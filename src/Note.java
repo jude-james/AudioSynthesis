@@ -1,5 +1,4 @@
-public enum Notes {
-
+public enum Note {
     REST, C, C$, D, D$, E, F, F$, G, G$, A, A$, B;
 
     private static final double STANDARD_PITCH = 440d;
@@ -7,7 +6,7 @@ public enum Notes {
 
     private double frequency = 0d;
 
-    Notes() {
+    Note() {
         calculateFrequency();
     }
 
