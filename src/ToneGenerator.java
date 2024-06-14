@@ -56,7 +56,6 @@ public class ToneGenerator {
             line.write(buffer, 0, 1);
             i++;
         }
-
          */
 
         int i = 0;
