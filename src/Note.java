@@ -25,13 +25,6 @@ public enum Note {
     }
 
     public double getFrequency(int octave) {
-        if (octave > DEFAULT_OCTAVE) {
-            return (octave - (DEFAULT_OCTAVE-1)) * frequency;
-        }
-        else if (octave < DEFAULT_OCTAVE) {
-            return frequency / ((DEFAULT_OCTAVE+1) - octave);
-        }
-        else
-            return frequency;
+        return frequency * Math.pow(2d, octave - DEFAULT_OCTAVE);
     }
 }
