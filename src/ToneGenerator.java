@@ -11,9 +11,7 @@ public class ToneGenerator {
     private static final boolean BIG_ENDIAN = false;
 
     private final SourceDataLine line;
-
-    private byte[] buffer;
-    private Wavetable wavetable;
+    private final byte[] buffer;
 
     public ToneGenerator() throws LineUnavailableException {
         AudioFormat audioFormat = new AudioFormat(SAMPLE_RATE, SAMPLE_BITS, CHANNELS, SIGNED, BIG_ENDIAN);
@@ -22,62 +20,60 @@ public class ToneGenerator {
         line.start();
 
         buffer = new byte[1];
-        wavetable = new Wavetable();
     }
 
     public void play() {
 
+        /*
         float volume = 1f;
         int octave = 4;
 
         byte[][] tones = new byte[][] {
-                wavetable.generateTriangle(Note.C.getFrequency(octave), volume),
-                //wavetable.generateTriangle(Note.C$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.D.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.D$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.E.getFrequency(octave), volume),
-                wavetable.generateTriangle(Note.F.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.F$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.G.getFrequency(octave), volume),
-                wavetable.generateTriangle(Note.G$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.A.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.A$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.B.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.C.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.C$.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.D.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.D$.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.E.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.F.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.F$.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.G.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.G$.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.A.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.A$.getFrequency(octave), volume),
+                //Wavetable.generateSine(Note.B.getFrequency(octave), volume),
         };
-
-        byte[][] tones2 = new byte[][] {
-                wavetable.generateTriangle(Note.C.getFrequency(octave), volume),
-                //wavetable.generateTriangle(Note.C$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.D.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.D$.getFrequency(octave), volume),
-                wavetable.generateTriangle(Note.E.getFrequency(octave), volume),
-                //wavetable.generateTriangle(Note.F.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.F$.getFrequency(octave), volume),
-                wavetable.generateTriangle(Note.G.getFrequency(octave), volume),
-                //wavetable.generateTriangle(Note.G$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.A.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.A$.getFrequency(octave), volume),
-                //wavetable.generateSine(Note.B.getFrequency(octave), volume),
-        };
-
-        byte[][] pressedTones = new byte[12][];
 
         int i = 0;
-        while (i < 100000) {
+        while (true) {
             for (byte[] tone : tones) {
-                buffer[0] = (byte) ((buffer[0] + tone[i % tone.length]) / tones2.length);
+                if (tones.length == 1) {
+                    buffer[0] = tone[i % tone.length];
+                }
+                else {
+                    buffer[0] = (byte) ((buffer[0] + tone[i % tone.length]) / tones.length);
+                }
             }
             line.write(buffer, 0, 1);
             i++;
         }
 
-        i = 0;
-        while (i < 100000) {
-            for (byte[] tone : tones2) {
-                buffer[0] = (byte) ((buffer[0] + tone[i % tone.length]) / tones2.length);
+         */
+
+        int i = 0;
+        while (true) {
+            for (Tone t : GUI.tones) {
+                if (t.isPlaying) {
+                    if (Tone.getCurrentlyPlaying() == 1) {
+                        buffer[0] = t.tone[i % t.tone.length];
+                    }
+                    else {
+                        buffer[0] = (byte) ((buffer[0] + t.tone[i % t.tone.length]) / Tone.getCurrentlyPlaying());
+                    }
+                }
             }
             line.write(buffer, 0, 1);
             i++;
         }
     }
 }
+

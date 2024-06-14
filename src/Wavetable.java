@@ -3,13 +3,13 @@ import java.util.Random;
 public class Wavetable {
     private static final int SAMPLE_RATE = 44100;
 
-    private byte[] createBuffer(double freq) {
+    private static byte[] createBuffer(double freq) {
         double wavelength = 1.0f / freq;
         int samples = (int) Math.round(wavelength * SAMPLE_RATE);
         return new byte[samples];
     }
 
-    public byte[] generateSine(double frequency, float volume) {
+    public static byte[] generateSine(double frequency, float volume) {
         byte[] output = createBuffer(frequency);
 
         double period = (double) SAMPLE_RATE / frequency;
@@ -21,7 +21,7 @@ public class Wavetable {
         return output;
     }
 
-    public byte[] generateSquare(double frequency, float volume) {
+    public static byte[] generateSquare(double frequency, float volume) {
         byte[] output = createBuffer(frequency);
 
         double period = (double) SAMPLE_RATE / frequency;
@@ -33,7 +33,7 @@ public class Wavetable {
         return output;
     }
 
-    public byte[] generateSaw(double frequency, float volume) {
+    public static byte[] generateSaw(double frequency, float volume) {
         byte[] output = createBuffer(frequency);
 
         double period = (double) SAMPLE_RATE / frequency;
@@ -45,7 +45,7 @@ public class Wavetable {
         return output;
     }
 
-    public byte[] generateTriangle(double frequency, float volume) {
+    public static byte[] generateTriangle(double frequency, float volume) {
         byte[] output = createBuffer(frequency);
 
         double period = (double) SAMPLE_RATE / frequency;
@@ -57,7 +57,7 @@ public class Wavetable {
         return output;
     }
 
-    public byte[] generateNoise(double frequency, float volume) {
+    public static byte[] generateNoise(double frequency, float volume) {
         byte[] output = new byte[999999]; // research how white noise samples are actually done
 
         Random ran = new Random();
